@@ -15,11 +15,11 @@ export const connectToDB = async () => {
   }
   console.log("Connecting to MongoDB");
   try {
-    await mongoose.connect(process.env.MONGODB_URL_LOCAL, {
+    await mongoose.connect(process.env.MONGODB_URL_ATLAS || "", {
       dbName: "Threads-2",
     });
     isConnected = true;
-    console.log("isConnected in try", isConnected);
+    // console.log("isConnected in try", isConnected);
     console.log("MongoDB connected");
   } catch (error) {
     console.log("Error", error);
