@@ -21,18 +21,10 @@ import { Textarea } from "../ui/textarea";
 import { createThread } from "@/lib/actions/thread.action";
 
 interface Props {
-  user: {
-    id: string;
-    objectId: string;
-    username: string;
-    name: string;
-    bio: string;
-    image: string;
-  };
-  btnTitle: string;
+  userId: string;
 }
 
-const PostThread = ({ userId }: { userId: string }) => {
+const PostThread = ({ userId }: Props) => {
   const pathname = usePathname();
   const router = useRouter();
   const form = useForm({

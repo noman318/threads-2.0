@@ -1,18 +1,31 @@
 import mongoose from "mongoose";
 
-const UserSchema = new mongoose.Schema({
-  id: { type: String, required: true },
-  username: { type: String, required: true },
-  name: { type: String, required: true },
-  image: { type: String },
-  bio: { type: String },
+const userSchema = new mongoose.Schema({
+  id: {
+    type: String,
+    required: true,
+  },
+  username: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  image: String,
+  bio: String,
   threads: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Thread",
     },
   ],
-  onboarded: { type: Boolean, default: false },
+  onboarded: {
+    type: Boolean,
+    default: false,
+  },
   communities: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -21,6 +34,6 @@ const UserSchema = new mongoose.Schema({
   ],
 });
 
-const User = mongoose?.models?.User || mongoose.model("User", UserSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 
 export default User;

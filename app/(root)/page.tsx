@@ -8,6 +8,8 @@ export default async function Home() {
   const results = await fetchPosts(1, 20);
   // console.log("results", results);
   const user = await currentUser();
+  if (!user) return null;
+  // console.log("typeof user.id", user);
   return (
     <>
       {/* <UserButton afterSignOutUrl="/" /> */}
@@ -22,7 +24,7 @@ export default async function Home() {
               <ThreadCard
                 key={post?._id}
                 id={post?._id}
-                currentUserInfo={user?.id}
+                currentUserInfo={user?.id || ""}
                 parentId={post?.parentId}
                 content={post?.text}
                 author={post?.author}
