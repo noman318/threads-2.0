@@ -4,6 +4,7 @@ let isConnected = false; // Variable to track the connection status
 export const connectToDB = async () => {
   // Set strict query mode for Mongoose to prevent unknown field queries.
   // mongoose.set("strictQuery", true);
+  // mongodb+srv://Noman:Noman123@apibootcamp.cis1b.mongodb.net/?retryWrites=true&w=majority
   // const MONGODB_URL_LOCAL = "mongodb://localhost:27017/prompt";
   // console.log("MONGODB_URL_LOCAL", MONGODB_URL_LOCAL);
   // console.log("isConnected", isConnected);
