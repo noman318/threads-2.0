@@ -1,8 +1,10 @@
-import React from "react";
+import ProfileHeader from "@/components/shared/ProfileHeader";
+import { fetchUser } from "@/lib/actions/user.action";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import { fetchUser } from "@/lib/actions/user.action";
-import PostThread from "@/components/forms/PostThread";
+import React from "react";
+import Image from "next/image";
+import ThreadsTab from "@/components/shared/ThreadsTab";
 
 const Page = async () => {
   const user = await currentUser();
@@ -11,10 +13,9 @@ const Page = async () => {
   //   console.log("userInfo", userInfo);
   if (!userInfo?.onboarded) redirect("/onboarding");
   return (
-    <>
-      <h1 className="head-text">Create Thread</h1>
-      <PostThread userId={userInfo?._id} />
-    </>
+    <section>
+      <h1 className="head-text">Search</h1>
+    </section>
   );
 };
 

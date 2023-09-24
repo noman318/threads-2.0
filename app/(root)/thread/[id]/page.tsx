@@ -39,6 +39,22 @@ const Page = async ({ params }: { params: { id: string } }) => {
           currentUserId={JSON.stringify(userInfo?._id)}
         />
       </div>
+      <div className="mt-10">
+        {thread?.children?.map((commnetData: any, index: any) => (
+          <ThreadCard
+            key={commnetData?._id}
+            id={commnetData?._id}
+            currentUserInfo={user?.id || ""}
+            parentId={commnetData?.parentId}
+            content={commnetData?.text}
+            author={commnetData?.author}
+            community={commnetData?.community}
+            createdAt={commnetData?.createdAt}
+            comments={commnetData?.children}
+            isComment
+          />
+        ))}
+      </div>
     </section>
   );
 };

@@ -5,8 +5,10 @@ import Link from "next/link";
 import { sidebarLinks } from "@/constants/index";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { SignOutButton, SignedIn } from "@clerk/nextjs";
+import { SignOutButton, SignedIn, useAuth } from "@clerk/nextjs";
+
 const LeftSideBar = () => {
+  const { userId } = useAuth();
   const router = useRouter();
   const pathName = usePathname();
   return (
@@ -17,6 +19,7 @@ const LeftSideBar = () => {
             (pathName.includes(link.route) && link.route.length > 1) ||
             pathName === link.route;
 
+          if (link.route === "/profile") link.route = `${link.route}/${userId}`;
           return (
             <Link
               href={link?.route}

@@ -2,6 +2,7 @@
 import { revalidatePath } from "next/cache";
 import User from "../models/user.model";
 import { connectToDB } from "../database";
+import Thread from "../models/thread.model";
 
 interface Params {
   userId: string;
@@ -52,5 +53,28 @@ export async function fetchUser(userId: string) {
   } catch (error: any) {
     console.log("Error in Fetching User", error);
     throw new Error(`Failed to fetch User ${error?.message}`);
+  }
+}
+
+export async function fetchUserPosts(userId: string) {
+  try {
+    connectToDB();
+    const threads = await User.findOne({ id: userId }).populate({
+      path: "threads",
+      model: Thread,
+      populate: {
+        path: "children",
+        model: Thread,
+        populate: {
+          path: "author",
+          model: User,
+          select: "id name image",
+        },
+      },
+    });
+    return threads;
+  } catch (error: any) {
+    console.log("errorInFetchPost", error);
+    throw new Error(`Error fethching posts from Users ${error}`);
   }
 }
