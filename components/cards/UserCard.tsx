@@ -13,15 +13,16 @@ interface Props {
 const UserCard = ({ id, name, username, imageUrl, personType }: Props) => {
   const router = useRouter();
   return (
-    <article className="user-card" key={id}>
+    <article className="user-card">
       <div className="user-card_avatar">
-        <Image
-          src={imageUrl}
-          alt="imageUrl"
-          width={48}
-          height={48}
-          className="rounded-full"
-        />
+        <div className="relative h-12 w-12">
+          <Image
+            src={imageUrl}
+            alt="user_logo"
+            fill
+            className="rounded-full object-cover"
+          />
+        </div>
         <div className="flex-1 text-ellipsis">
           <h4 className="text-base-semibold text-light-1">{name}</h4>
           <p className="text-base-medium text-gray-1">@{username}</p>

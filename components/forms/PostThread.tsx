@@ -38,7 +38,7 @@ const PostThread = ({ userId }: Props) => {
     },
   });
   const onSubmit = async (values: z.infer<typeof ThreadsValidation>) => {
-    console.log("values", values);
+    // console.log("values", values);
     // console.log("organization", organization);
     await createThread({
       text: values.thread,
@@ -46,7 +46,7 @@ const PostThread = ({ userId }: Props) => {
       communityId: organization ? organization?.id : null,
       path: pathname,
     });
-    console.log("Created successfully");
+    // console.log("Created successfully");
     router.push("/");
   };
   return (

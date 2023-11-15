@@ -27,7 +27,7 @@ interface Props {
   currentUserId: string;
 }
 const Comment = ({ threadId, currentUserImg, currentUserId }: Props) => {
-  console.log("currentUserId", currentUserId);
+  // console.log("currentUserId", currentUserId);
   const pathname = usePathname();
   const router = useRouter();
   const form = useForm({
@@ -37,7 +37,7 @@ const Comment = ({ threadId, currentUserImg, currentUserId }: Props) => {
     },
   });
   const onSubmit = async (values: z.infer<typeof CommentValidation>) => {
-    console.log("values", values);
+    // console.log("values", values);
     await addCommentToThread(
       threadId,
       values.thread,
@@ -45,8 +45,8 @@ const Comment = ({ threadId, currentUserImg, currentUserId }: Props) => {
       pathname
     );
     form.reset();
-    console.log("Created successfully");
-    // router.push("/");
+    // console.log("Created successfully");
+    router.push("/");
   };
   return (
     <div>
