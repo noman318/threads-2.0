@@ -24,6 +24,7 @@ interface Props {
     };
   }[];
   isComment?: boolean;
+  params?: string;
 }
 const ThreadCard = ({
   id,
@@ -35,7 +36,10 @@ const ThreadCard = ({
   createdAt,
   comments,
   isComment,
+  params,
 }: Props) => {
+  // let paramsId = params
+  // console.log("paramsInThreadCard", params);
   // console.log("isCommentInThread", isComment);
   // console.log("commentsInThread", comments?.length);
   return (
@@ -105,7 +109,8 @@ const ThreadCard = ({
                   {comments.length} replies
                 </p>
               )} */}
-              {comments?.length > 0 && (
+              {/* this will change based on different scenerio */}
+              {!params && comments?.length > 0 && (
                 <Link href={`/thread/${id}`}>
                   <p className="mt-1 text-subtle-medium text-gray-1">
                     {comments?.length} repl{comments?.length > 1 ? "ies" : "y"}

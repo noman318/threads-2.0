@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const Page = async ({ params }: { params: { id: string } }) => {
-  //   console.log("params", params);
+  // console.log("paramsWithId", params.id);
   if (!params.id) return null;
   const user = await currentUser();
   //   console.log("user", user);
@@ -30,6 +30,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
           community={thread?.community}
           createdAt={thread?.createdAt}
           comments={thread?.children}
+          params={params?.id}
         />
       </div>
       <div className="mt-7">
@@ -51,6 +52,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
             community={commentData?.community}
             createdAt={commentData?.createdAt}
             comments={commentData?.children}
+            params={params?.id}
             isComment
           />
         ))}
