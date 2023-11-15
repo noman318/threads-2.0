@@ -4,29 +4,44 @@ import { revalidatePath } from "next/cache";
 import { connectToDB } from "../database";
 import Thread from "../models/thread.model";
 import User from "../models/user.model";
+import Community from "../models/community.model";
 
 interface Params {
   text: string;
   author: string;
-  cummunityId: string | null;
+  communityId: string | null;
   path: string;
 }
 
 export const createThread = async ({
   text,
   author,
-  cummunityId,
+  communityId,
   path,
 }: Params) => {
   try {
     connectToDB();
-    const createThread = await Thread.create({ text, author, cummunity: null });
+    const communityIdObject = await Community.findOne(
+      { id: communityId },
+      { _id: 1 }
+    );
+
+    const createThread = await Thread.create({
+      text,
+      author,
+      community: communityIdObject,
+    });
     // console.log("author", author);
 
     // Update UserModel thread and add it User Table
     await User.findByIdAndUpdate(author, {
       $push: { threads: createThread._id },
     });
+    if (communityIdObject) {
+      await Community.findByIdAndUpdate(communityIdObject, {
+        $push: { threads: createThread._id },
+      });
+    }
     revalidatePath(path);
   } catch (error: any) {
     throw new Error(`Error while Creating threads ${error?.message}`);
@@ -46,6 +61,10 @@ export const fetchPosts = async (pageNumber = 1, pageSize = 20) => {
       .skip(skipAmount)
       .limit(pageSize)
       .populate({ path: "author", model: User })
+      .populate({
+        path: "community",
+        model: Community,
+      })
       .populate({
         path: "children",
         populate: {
@@ -79,6 +98,11 @@ export const fetchThreadById = async (id: string) => {
         path: "author",
         model: User,
         select: "_id name parentId image",
+      })
+      .populate({
+        path: "community",
+        model: Community,
+        select: "_id id name image",
       })
       .populate({
         path: "children",
