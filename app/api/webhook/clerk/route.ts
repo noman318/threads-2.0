@@ -28,6 +28,10 @@ type Event = {
   type: EventType;
 };
 
+export const GET = async (request: Request, response: Response) => {
+  return NextResponse.json({ message: "WebHook tesing" });
+};
+
 export const POST = async (request: Request) => {
   const payload = await request.json();
   const header = headers();

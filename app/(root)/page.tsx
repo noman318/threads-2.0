@@ -5,11 +5,12 @@ import { fetchPosts } from "@/lib/actions/thread.action";
 import { currentUser } from "@clerk/nextjs";
 
 export default async function Home() {
-  const results = await fetchPosts(1, 20);
-  // console.log("resultsInRoot", results);
   const user = await currentUser();
   if (!user) return null;
   // console.log("typeof user.id", user);
+  const results = await fetchPosts(1, 20);
+  // console.log("resultsInRoot", results);
+
   return (
     <>
       {/* <UserButton afterSignOutUrl="/" /> */}
